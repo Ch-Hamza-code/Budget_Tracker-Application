@@ -1,41 +1,83 @@
-import React, { useState } from 'react';
-import Input from '../../../Components/Input/Input';
+import React from 'react';
+import { useForm, Controller } from "react-hook-form";
+import { SignupContainer } from './Signup.Styles';
 import Button from '../../../Components/Buttons/Button';
-import {SignupContainer, Title , SubTitle,} from './Signup.Styles';
-
-
-
+import { SignupFormInputs } from './SignUp.types';
+import { InputField } from '../../../Components/FormComponents/FormComponents';
 
 const SignUp: React.FC = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [budgetLimit, setBudgetLimit] = useState("");
-  
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      console.log({ firstName, lastName, email, password, confirmPassword, budgetLimit });
-    };
-  
-    return (
-      <SignupContainer>
-        <Title>Sign Up</Title>
-        <SubTitle>Welcome to our community</SubTitle>
+  const { handleSubmit, control, formState: { errors } } = useForm<SignupFormInputs>();
 
-        <form onSubmit={handleSubmit}>
-          <Input type="First Name" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-          <Input type="last Name" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-          <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <Input type="Confirm password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-          <Input type="Number" placeholder="Budget Limit" value={budgetLimit} onChange={(e) => setBudgetLimit(e.target.value)} />
-          <Button>Sign Up</Button>
-        </form>
-        
-      </SignupContainer>
-    );
+  const onSubmit = (data: SignupFormInputs) => {
+    console.log("Form Data:", data);
   };
-  
-  export default SignUp;
+
+  return (
+    <SignupContainer>
+      <h2>Sign Up</h2>
+      <p>Welcome to our community</p>
+
+      <form className='Form' onSubmit={handleSubmit(onSubmit)}>
+        <InputField 
+          control={control} 
+          name='firstname' 
+          type='text' 
+          label='First Name'
+          error={!!errors.firstname} 
+          placeholder='First Name'
+          helperText={errors?.firstname?.message}
+        />
+        <InputField 
+          control={control} 
+          name='Lastname' 
+          type='text' 
+          label='Last Name'
+          error={!!errors.Lastname} 
+          placeholder='Last Name'
+          helperText={errors?.Lastname?.message}
+        />
+        <InputField 
+          control={control} 
+          name='email' 
+          type='email' 
+          label='Email'
+          error={!!errors.email} 
+          placeholder='Enter an Email'
+          helperText={errors?.email?.message}
+        />
+        <InputField 
+          control={control} 
+          name='password' 
+          type='password' 
+          label='Password'
+          error={!!errors.password} 
+          placeholder='Enter Password'
+          helperText={errors?.password?.message}
+        />
+        <InputField 
+          control={control} 
+          name='password' 
+          type='password' 
+          label='Password'
+          error={!!errors.password} 
+          placeholder='Enter Password'
+          helperText={errors?.password?.message}
+        />
+        <InputField 
+          control={control} 
+          name='budget' 
+          type='number' 
+          label='Budget Limit'
+          error={!!errors.budget} 
+          placeholder='Enter a Amount'
+          helperText={errors?.budget?.message}
+        />
+        <div>
+        <Button type="submit" variant="contained">Sign Up</Button>
+        </div>
+      </form>
+    </SignupContainer>
+  );
+};
+
+export default SignUp;

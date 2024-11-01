@@ -1,47 +1,57 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Input from '../../../Components/Input/Input';
+import React from 'react';
+import { useForm } from "react-hook-form";
+import { LoginStyled, Form, RememberMe } from './Login.Styles';
 import Button from '../../../Components/Buttons/Button';
-import {Container, Title,Subtitle,Form,Label,RememberMe,Checkbox,LinkText,FooterText,} from './Login.Styles';
-
-
-
+import { FormInputs } from './Login.types';
+import { CheckboxField, InputField } from '../../../Components/FormComponents/FormComponents';
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const { handleSubmit, control, formState: { errors } } = useForm<FormInputs>({
+    defaultValues: {
+      email: "uzair",
+      password: "",
+      rememberMe: 'checked',
+    }
+});
 
-  const handleLogin = (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log({ email, password, rememberMe });
+  const onSubmit = (data: FormInputs) => {
+    console.log("Form Data:", data);
   };
 
   return (
-    <Container>
-      <Title>Welcome Back!</Title>
-      <Subtitle>Sign in to continue to Budget Tracker</Subtitle>
-      <Form onSubmit={handleLogin}>
-
-        <Label>Email</Label>
-        < Input  type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email"/>
-
-        <Label>Password</Label>
-        <Input type="password" value={password}onChange={(e) => setPassword(e.target.value)}  placeholder="Enter your password" />
-
+    <LoginStyled>
+      <h1>Welcome Back!</h1>
+      <p>Sign in to continue to Budget Tracker</p>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputField 
+          control={control} 
+          name='email' 
+          type='email' 
+          label='Email'
+          error={!!errors.email} 
+          placeholder='Enter an Email'
+          helperText={errors?.email?.message}
+        />
+        <InputField 
+          control={control} 
+          name='password' 
+          type='password' 
+          label='Password'
+          error={!!errors.password} 
+          placeholder='Enter password'
+          helperText={errors?.password?.message}
+        />
+        
         <RememberMe>
-          <Checkbox type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}  />
-          Remember me
-          <LinkText as={Link} to="/Reset" >Forgot Password?</LinkText>
+        <CheckboxField name='rememberMe' label='Remember me' control={control} />
+          <Button href="/Reset" variant="text">Forgot Password?</Button>
         </RememberMe>
-
-        <Button type="submit">Log In</Button>
+        <Button type="submit" variant="contained">Log In</Button>
       </Form>
-
-      <FooterText>
-        Don't have an account? <LinkText as={Link} to="/signup">Sign Up</LinkText>
-      </FooterText>
-    </Container>
+      <div className="footer">
+        Don't have an account? <Button href="/SignUp" variant="text" color="primary">Signup</Button>
+      </div>
+    </LoginStyled>
   );
 };
 

@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const LoginStyled = styled.div`
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
@@ -9,18 +9,13 @@ export const Container = styled.div`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   text-align: center;
+
+
+  .footer{
+    align-items: center;
+  }
 `;
 
-export const Title = styled.h2`
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-
-export const Subtitle = styled.p`
-  color: #666;
-  margin-bottom: 20px;
-`;
 
 export const Form = styled.form`
   display: flex;
@@ -42,15 +37,6 @@ export const RememberMe = styled.div`
 `;
 
 export const Checkbox = styled.input`
-  margin-right: 10px;
+  margin-right: 2%;
 `;
 
-export const LinkText = styled.a`
-  color: rgba(117, 57, 255, 1);
-  text-decoration: none;
-  font-weight: bold;
-`;
-export const FooterText = styled.p`
-  margin-top: 20px;
-  font-size: 14px;
-`;

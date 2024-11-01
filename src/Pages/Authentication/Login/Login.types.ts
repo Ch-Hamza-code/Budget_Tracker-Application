@@ -1,2 +1,9 @@
 
-export { default } from './Login';
+export interface FormInputs {
+
+    email?: string;
+    password?: string;
+    rememberMe?: string;
+  }
+
+
