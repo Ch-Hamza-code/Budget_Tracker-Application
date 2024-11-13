@@ -5,6 +5,7 @@ const expenseSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   date: { type: Date, required: true },
   userEmail: { type: String, required: true },
+  accountId: {type: String, required: true}
   
 });
 
