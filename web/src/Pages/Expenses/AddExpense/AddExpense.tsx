@@ -20,6 +20,7 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
       return;
     }
     const profileEmail = localStorage.getItem("email")
+    const id = localStorage.getItem("userId")
     // Include userEmail in the expense data
     const expenseData = { 
       title, 
@@ -30,7 +31,7 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
 
     try {
       const token = localStorage.getItem('token'); // Retrieve token if using JWT
-      const response = await fetch('http://localhost:5000/api/expenses/add', {
+      const response = await fetch(`http://localhost:5000/api/expenses/add/${id}`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

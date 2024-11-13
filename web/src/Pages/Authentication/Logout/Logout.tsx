@@ -10,6 +10,7 @@ const Logout: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem('token'); 
     localStorage.removeItem("email");
+    localStorage.removeItem("userId");
     setOpen(true);
     navigate('/login'); 
   };

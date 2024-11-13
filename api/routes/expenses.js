@@ -4,12 +4,12 @@ const Expense = require('../models/Expense');
 const authenticateJWT = require('../middleware/authMiddleware'); 
 
 
-router.post('/add', authenticateJWT, async (req, res) => {
-    const { title, price, date } = req.body;
-    const userEmail = req.user.email; // Get the user email from the authenticated token
-
+router.post('/add/:id', authenticateJWT, async (req, res) => {
+    const { id } = req.params;
+    const { title, price, date, userEmail } = req.body;
+    
     try {
-        const newExpense = new Expense({ title, price, date, userEmail });
+        const newExpense = new Expense({ title, price, date, userEmail, accountId: id });
         await newExpense.save();
 
         // Verify by querying the latest added expense
@@ -25,9 +25,10 @@ router.post('/add', authenticateJWT, async (req, res) => {
 });
 
 router.get('/', authenticateJWT, async (req, res) => {
-    const userEmail = req.user.email; // Get the user email from the authenticated token
+    const userId = req.user.userId; // Get the user email from the authenticated token
+    console.log("User",req.user)
     try {
-        const expenses = await Expense.find({ userEmail }, '-__v ');
+        const expenses = await Expense.find({ accountId:userId }, '-__v ');
         res.status(200).json(expenses);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch expenses' });

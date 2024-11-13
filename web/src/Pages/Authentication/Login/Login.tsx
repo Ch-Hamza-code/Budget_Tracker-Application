@@ -17,9 +17,9 @@ const navigate = useNavigate();
 const onSubmit = async (data: FormInputs) => {
   try {
     const response = await axios.post('http://localhost:5000/api/auth/login', data)
-
     localStorage.setItem('token', response.data.token);
-    localStorage.setItem("email", data?.email || "")
+    localStorage.setItem("email", response?.data?.profile?.email || "");
+    localStorage.setItem("userId", response?.data?.profile?.id || "")
    
     toast.success(response.data.message, {
       onClose: () => {

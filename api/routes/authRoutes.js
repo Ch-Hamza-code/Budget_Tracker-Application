@@ -48,7 +48,6 @@ router.post('/login', async (req, res) => {
         
         const user = await User.findOne({ email });
         
-        console.log()
         if (!user) {
             return res.status(400).json({ message: 'User not found with that email.' });
         }
@@ -65,10 +64,14 @@ router.post('/login', async (req, res) => {
             process.env.JWT_SECRET, // Secret key
             { expiresIn: '1h' } // Expiry time
         );
-        console.log(token)
+        
         res.status(200).json({
             message: 'Login successful',
             token, // Send the token to the client
+            profile: {
+                id: user._id,
+                email: user.email
+            }
         });
 
     } catch (error) {
