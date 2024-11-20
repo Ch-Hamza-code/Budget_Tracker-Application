@@ -8,6 +8,11 @@ import { Icon } from '../../Icons/Icon';
 
 const sideBarItems = [
   {
+    icon: <Icon iconName='LogoutIcon'/>,
+    name: "Profile",
+    href: "/profile-screen" 
+   },
+  {
    icon: <Icon iconName='analyticsIcon'/>,
    name: "Analytics", 
    href: "/analytics"
@@ -26,7 +31,7 @@ const sideBarItems = [
     icon: <Icon iconName='LogoutIcon'/>,
     name: "Logout",
     href: "/logout" 
-   }
+   },
 ]
 
 const Sidebar: React.FC = () => (

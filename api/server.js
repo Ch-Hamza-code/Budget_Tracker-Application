@@ -29,6 +29,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', authRoutes);
 app.use('/api/expenses', expenseRoutes); 
 // Start the server
 app.listen(5000, () => {

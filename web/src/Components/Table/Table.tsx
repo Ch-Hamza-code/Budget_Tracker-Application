@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Table
 import {  TabledataProps } from './Table.Types';
 import Sidebar from '../SideBar/SideBar';
 
+const excludedKey = ["id", "_id","__v"]
 
 const TableComponent : React.FC<TabledataProps> = ({ columns,data }) => {
     const [page, setPage] = React.useState(0);
@@ -34,7 +35,7 @@ const TableComponent : React.FC<TabledataProps> = ({ columns,data }) => {
                              {data?.map((column: any) => (
                             <TableRow key={column?.id}>
                                 {Object.keys(column)
-                               .filter((key) => key !== "id") // Exclude "id" key
+                               .filter((key) => !excludedKey.includes(key)) // Exclude "id" key
                                 .map((key) => (
                                <TableCell key={key}>{column[key]}</TableCell>
                                  ))} 

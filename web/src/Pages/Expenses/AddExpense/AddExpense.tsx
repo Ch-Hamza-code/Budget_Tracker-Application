@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Grid, TextField } from '@mui/material';
 import Button from '../../../Components/Buttons/Button';
 import { DialogBoxStyled } from './AddExpenseStyles';
+import { toast } from 'react-toastify';
 
 interface AddExpenseDialogProps {
   open: boolean;
@@ -24,26 +25,31 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
     // Include userEmail in the expense data
     const expenseData = { 
       title, 
-      price: parseFloat(price), // Convert price to a number
+      price: parseFloat(price), // Convert price to  a number
       date: new Date(date).toISOString(), // Ensure the date is in ISO format
       userEmail: profileEmail // Associate with current user
     };
 
     try {
-      const token = localStorage.getItem('token'); // Retrieve token if using JWT
+      const token = localStorage.getItem('token'); 
       const response = await fetch(`http://localhost:5000/api/expenses/add/${id}`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include authorization header
+          'Authorization': `Bearer ${token}`, 
         },
         body: JSON.stringify(expenseData),
-      });    
+      });  
+     
+ 
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message); // Expense added successfully
-        onClose(); // Close the dialog box
+        toast.success(data.message, {
+          onClose: () => {},
+          autoClose: 1000
+        });
+        onClose();  
       } else {
         console.error('Failed to add expense');
       }

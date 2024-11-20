@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { columns } from './Expense.Types';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton, LinearProgress, Typography } from '@mui/material';
+import { Box, IconButton, LinearProgress, Typography } from '@mui/material';
 import TableComponent from '../../Components/Table/Table';
 import { ExpenseContainerStyled } from './Expense.Styles';
 import Sidebar from '../../Components/SideBar/SideBar';
@@ -51,8 +51,6 @@ const ExpensesPage: React.FC = () => {
           'Authorization': `Bearer ${token}`, // Include token in request header
         },
       });
-      
-  
       if (response.status === 200) {
         console.log('Expense deleted:', response.data.message);
         // Remove the expense from state
@@ -90,6 +88,7 @@ const ExpensesPage: React.FC = () => {
   }));
 
   return (
+    
     <ExpenseContainerStyled>
       <Sidebar />
       <div className='ExpenseTable'>

@@ -20,10 +20,12 @@ const onSubmit = async (data: FormInputs) => {
     localStorage.setItem('token', response.data.token);
     localStorage.setItem("email", response?.data?.profile?.email || "");
     localStorage.setItem("userId", response?.data?.profile?.id || "")
+    localStorage.setItem("role", response?.data?.profile?.role || "");
    
     toast.success(response.data.message, {
       onClose: () => {
-        window.location.href = '/expense-table';
+        const role = response.data.profile.role;
+        window.location.href = role === "admin" ? "/user-page" : "/expense-table";
       },
       autoClose: 1000
     });
@@ -37,8 +39,16 @@ const onSubmit = async (data: FormInputs) => {
 };
 
 useEffect(()=>{
-  const token = localStorage.getItem("token")
-  if(token) navigate('/expense-table');
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+
+  if (token) {
+    if (role === "admin") {
+      navigate("/user-page");
+    } else {
+      navigate("/expense-table");
+    }
+  }
 },[])
 
   return (

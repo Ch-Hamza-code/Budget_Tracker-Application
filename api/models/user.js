@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     email:     {  type: String, required: true,  unique: true, },
     password:  {  type: String,  required: true, },
     budgetLimit: { type: Number, required: true, },
+    role: { type: String, enum: ['admin', 'user'], default: 'user' },
     date:        { type: Date,  default: Date.now,},
 });
 
@@ -35,7 +36,10 @@ UserSchema.statics.login = async function (email, password) {
     return user;
 };
 
+
 module.exports = mongoose.model('users', UserSchema);
+
+
 
 
 

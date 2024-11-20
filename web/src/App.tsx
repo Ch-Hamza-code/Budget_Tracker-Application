@@ -8,6 +8,7 @@ import ProtectedRoute from './Components/protectedRoute';
 import Logout from './Pages/Authentication/Logout/Logout';
 import AnalysisPage from './Pages/Analytics/Analytics';
 import AddExpenseDialog from './Pages/Expenses/AddExpense/AddExpense';
+import ProfileScreen from './Pages/Profile/Profile';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/analytics" element={<ProtectedRoute><AnalysisPage/></ProtectedRoute>} />
         <Route path="/logout" element={<ProtectedRoute><Logout /></ProtectedRoute>} />
       <Route path="/user-page" element={<ProtectedRoute><UserPage /></ProtectedRoute>} />
+      <Route path="/profile-screen" element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>} />
     </Routes>
   </Router>
   );

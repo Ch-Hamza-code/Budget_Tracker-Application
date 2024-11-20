@@ -35,7 +35,7 @@ exports.registerUser = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
   try {
-    const users = await User.find({}, '-_id -password -budgetLimit -date'); 
+    const users = await User.find({}, '-password -budgetLimit -date');
     res.status(200).json(users);
   } catch (error) {
     console.error('Error fetching users:', error);

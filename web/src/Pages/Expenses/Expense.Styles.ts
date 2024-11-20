@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ExpenseContainerStyled = styled.div`
-  flex-grow: 1;
+  
   display: flex;
     padding: 20px;
     background-color: #fff;
