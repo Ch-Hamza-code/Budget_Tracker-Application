@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
   max-width: 400px;
@@ -6,21 +6,10 @@ export const Container = styled.div`
   padding: 18px;
   text-align: center;
 
-
-.footer{
-  align-items: center;
-}
-
-.ResetForm{
-  display: flex;
-flex-direction: column;
-align-items: center;
-  margin-top: 20px;
-}
-
-
+  .ResetForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
 `;
-
-
-
-

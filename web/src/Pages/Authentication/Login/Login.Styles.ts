@@ -1,5 +1,5 @@
-
-import styled from 'styled-components';
+// Login.Styles.ts
+import styled from "styled-components";
 
 export const LoginStyled = styled.div`
   max-width: 400px;
@@ -10,12 +10,12 @@ export const LoginStyled = styled.div`
   border-radius: 8px;
   text-align: center;
 
-
-  .footer{
+  .footer {
     align-items: center;
+    font-size: 14px;
+    margin-top: 20px;
   }
 `;
-
 
 export const Form = styled.form`
   display: flex;
@@ -39,4 +39,3 @@ export const RememberMe = styled.div`
 export const Checkbox = styled.input`
   margin-right: 2%;
 `;
-

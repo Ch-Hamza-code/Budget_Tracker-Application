@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { columns } from './Expense.Types';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, IconButton, LinearProgress, Typography } from '@mui/material';
-import TableComponent from '../../Components/Table/Table';
-import { ExpenseContainerStyled } from './Expense.Styles';
-import Sidebar from '../../Components/SideBar/SideBar';
-import Button from '../../Components/Buttons/Button';
-import AddExpenseDialog from './AddExpense/AddExpense';
-import axios from 'axios';
-import { GET_EXPENSES, LOCAL_HOST } from '../../Constants/Urls';
+import React, { useEffect, useState } from "react";
+import { columns } from "./Expense.Types";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton, LinearProgress, Typography } from "@mui/material";
+import TableComponent from "../../Components/Table/Table";
+import { ExpenseContainerStyled } from "./Expense.Styles";
+import Sidebar from "../../Components/SideBar/SideBar";
+import Button from "../../Components/Buttons/Button";
+import AddExpenseDialog from "./AddExpense/AddExpense";
+import { deleteExpense, FetchExpenses } from "./Expense.service";
 
 const ExpensesPage: React.FC = () => {
-  const [expenses, setExpenses] = useState<any[]>([]); // Initialize as empty array
+  const [expenses, setExpenses] = useState<any[]>([]);
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const userEmail = localStorage.getItem('userEmail') || '';
+  const userEmail = localStorage.getItem("userEmail") || "";
 
   const fetchExpenses = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token'); // Assuming JWT is stored in local storage
-      const response = await axios.get('http://localhost:5000/api/expenses', {
-        headers: {
-          'Authorization': `Bearer ${token}`, // Pass token in headers
-        },
-      });
-      setExpenses(response.data); // Update the state with fetched data
-    } catch (error) {
-      console.error('Error fetching expenses:', error);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("User is not authenticated");
+      }
+
+      const data = await FetchExpenses(token);
+      setExpenses(data);
+    } catch (error: any) {
+      console.error("Error fetching expenses:", error.message);
     } finally {
       setLoading(false);
     }
@@ -40,29 +39,24 @@ const ExpensesPage: React.FC = () => {
   }, []);
 
   const handleEdit = (id: string) => {
-    console.log('Edit expense with id:', id);
+    console.log("Edit expense with id:", id);
   };
- 
+
   const handleDelete = async (id: string) => {
     try {
-      const token = localStorage.getItem('token'); // Retrieve token if using JWT
-      const response = await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`, // Include token in request header
-        },
-      });
-      if (response.status === 200) {
-        console.log('Expense deleted:', response.data.message);
-        // Remove the expense from state
-        setExpenses(expenses.filter(expense => expense._id !== id));
-      } else {
-        console.error('Error deleting expense:', response.data.error);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("User is not authenticated");
       }
-    } catch (error) {
-      console.error('Error:', error);
+
+      const result = await deleteExpense(id, token);
+      console.log("Expense deleted:", result.message);
+
+      setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense._id !== id));
+    } catch (error: any) {
+      console.error("Error deleting expense:", error);
     }
   };
-  
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
@@ -70,17 +64,17 @@ const ExpensesPage: React.FC = () => {
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-    fetchExpenses(); // Refresh expenses after adding a new one
+    fetchExpenses();
   };
 
   const dataWithActions = expenses.map((expense) => ({
     ...expense,
     Actions: (
       <>
-        <IconButton onClick={() => handleEdit(expense._id)}>
+        <IconButton onClick={() => handleEdit(expense._id)} title="Edit">
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => handleDelete(expense._id)}>
+        <IconButton onClick={() => handleDelete(expense._id)} title="Delete">
           <DeleteIcon />
         </IconButton>
       </>
@@ -88,16 +82,19 @@ const ExpensesPage: React.FC = () => {
   }));
 
   return (
-    
     <ExpenseContainerStyled>
       <Sidebar />
-      <div className='ExpenseTable'>
+      <div className="ExpenseTable">
         <div className="heading">
           <h1>EXPENSES</h1>
-          <Button onClick={handleOpenDialog} type="button" variant="contained"> Add Expense </Button>
+          <Button onClick={handleOpenDialog} type="button" variant="contained">
+            Add Expense
+          </Button>
         </div>
         <div className="Table">
-          <Typography variant="h6" sx={{ marginLeft: '16px' }}>Expenses</Typography>
+          <Typography variant="h6" sx={{ marginLeft: "16px" }}>
+            Expenses
+          </Typography>
         </div>
         {loading ? (
           <LinearProgress />

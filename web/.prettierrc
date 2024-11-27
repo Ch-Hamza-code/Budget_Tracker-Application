@@ -1,0 +1,6 @@
+{
+  "printWidth": 120,
+  "endOfLine": "auto",
+  "jsxBracketSameLine": false,
+  "trailingComma": "all"
+}

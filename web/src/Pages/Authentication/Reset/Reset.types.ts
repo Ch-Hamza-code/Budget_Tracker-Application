@@ -1,7 +1,3 @@
-
 export interface ResetFormInputs {
-
-    email?: string;
-
-  }
-
+  email?: string;
+}

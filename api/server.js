@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const expenseRoutes = require('./routes/expenses'); 
+const accountRoutes = require('./routes/accountRoutes');
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', authRoutes);
 app.use('/api/expenses', expenseRoutes); 
+app.use('/api/accounts', accountRoutes);
 // Start the server
 app.listen(5000, () => {
     console.log('Server running on port 5000');

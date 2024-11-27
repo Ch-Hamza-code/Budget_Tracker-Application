@@ -1,11 +1,8 @@
-import styled from 'styled-components';
-import { Dialog } from '@mui/material';
-
-
+import styled from "styled-components";
+import { Dialog } from "@mui/material";
 
 export const DialogBoxStyled = styled(Dialog)`
-
-MuiPaper-root {
+  MuiPaper-root {
     border-radius: 12px;
     padding: 20px;
     max-width: 400px;
@@ -71,20 +68,18 @@ MuiPaper-root {
     background-color: rgba(0, 0, 0, 0.04);
   }
 
-
-  .text-2{
+  .text-2 {
     margin-top: 2%;
     display: flex;
     align-content: space-between;
   }
 
-  .t1{
+  .t1 {
     max-width: 50%;
     margin-right: 5%;
   }
-  .t2{
+  .t2 {
     max-width: 50%;
     margin-left: 5%;
   }
-  
 `;
