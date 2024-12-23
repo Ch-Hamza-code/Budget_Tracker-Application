@@ -18,12 +18,12 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
 
   const handleAdd = async () => {
     if (!title || !price || !date) {
-      alert("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
     const profileEmail = localStorage.getItem("email");
     const id = localStorage.getItem("userId");
-    // Include userEmail in the expense data
+
     const expenseData = {
       title,
       price: parseFloat(price),
@@ -82,12 +82,14 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
-          Cancel
-        </Button>
-        <Button onClick={handleAdd} color="primary" variant="contained">
-          Add
-        </Button>
+        <div className="dailog-buttons">
+          <Button onClick={onClose} variant="outlined">
+            Cancel
+          </Button>
+          <Button onClick={handleAdd} variant="outlined">
+            Add
+          </Button>
+        </div>
       </DialogActions>
     </DialogBoxStyled>
   );

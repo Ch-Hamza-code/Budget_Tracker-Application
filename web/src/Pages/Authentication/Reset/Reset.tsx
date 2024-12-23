@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../../Components/Buttons/Button";
-import { Container } from "./Reset.Styles";
+import { Form, LeftSection, ResetContainer, RightSection } from "./Reset.Styles";
 import { InputField } from "../../../Components/FormComponents/FormComponents";
 import { ResetFormInputs } from "./Reset.types";
 import { useForm } from "react-hook-form";
@@ -15,26 +15,34 @@ const ResetPassword: React.FC = () => {
   const onSubmit = async (data: ResetFormInputs) => {};
 
   return (
-    <Container>
-      <h1>Reset Password</h1>
-      <p>Enter your email for a reset link.</p>
-      <div className="ResetForm">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <InputField
-            control={control}
-            name="email"
-            type="email"
-            label="Enter an Email"
-            error={!!errors.email}
-            placeholder="First Name"
-            helperText={errors?.email?.message}
-          />
-          <Button type="submit" variant="contained">
-            SEND RESET PASSWORD LINK
-          </Button>
-        </form>
-      </div>
-    </Container>
+    <ResetContainer>
+      <LeftSection>
+        <h1>Reset Password</h1>
+        <p>Enter your email for a reset link.</p>
+        <div className="ResetForm">
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <InputField
+              control={control}
+              name="email"
+              type="email"
+              label="Enter an Email"
+              error={!!errors.email}
+              placeholder="First Name"
+              helperText={errors?.email?.message}
+            />
+            <Button type="submit" variant="contained">
+              SEND RESET PASSWORD LINK
+            </Button>
+          </Form>
+          <p className="reset-link">
+            Don't have an account?<a href="/signup">Sign Up</a>
+          </p>
+        </div>
+      </LeftSection>
+      <RightSection>
+        <img src="/Images/resetimage.svg" alt="reset"></img>
+      </RightSection>
+    </ResetContainer>
   );
 };
 

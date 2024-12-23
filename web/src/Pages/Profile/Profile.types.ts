@@ -12,3 +12,5 @@ export interface ProfileDataType {
   education: string;
   gender: string;
 }
+
+type newType = Pick<ProfileDataType, "gender" | "dob">;

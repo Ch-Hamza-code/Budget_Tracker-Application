@@ -2,17 +2,10 @@ import styled from "styled-components";
 import { Dialog } from "@mui/material";
 
 export const DialogBoxStyled = styled(Dialog)`
-  MuiPaper-root {
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 400px;
-  }
-
   .MuiDialogTitle-root {
     font-size: 1.5rem;
     font-weight: bold;
     padding-bottom: 10px;
-    text-align: center;
   }
 
   .MuiDialogContent-root {
@@ -23,15 +16,12 @@ export const DialogBoxStyled = styled(Dialog)`
   }
 
   .MuiTextField-root {
+    margin-top: 2%;
     width: 100%;
 
     .MuiInputBase-root {
       border-radius: 8px;
-      background-color: #f5f5f5;
-    }
-
-    .MuiOutlinedInput-notchedOutline {
-      border-color: #e0e0e0;
+      background-color: rgba(221, 228, 240, 1);
     }
 
     .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
@@ -45,23 +35,8 @@ export const DialogBoxStyled = styled(Dialog)`
     justify-content: space-between;
   }
 
-  .MuiButton-root {
-    font-weight: 500;
-    border-radius: 8px;
-    padding: 8px 16px;
-  }
-
-  .MuiButton-containedPrimary {
-    width: 27%;
-    color: #fff;
-  }
-
   .MuiButton-containedPrimary:hover {
     background-color: #5a34a0;
-  }
-
-  .MuiButton-textSecondary {
-    color: #6c757d;
   }
 
   .MuiButton-textSecondary:hover {
@@ -71,7 +46,7 @@ export const DialogBoxStyled = styled(Dialog)`
   .text-2 {
     margin-top: 2%;
     display: flex;
-    align-content: space-between;
+    gap: 0%;
   }
 
   .t1 {
@@ -81,5 +56,19 @@ export const DialogBoxStyled = styled(Dialog)`
   .t2 {
     max-width: 50%;
     margin-left: 5%;
+  }
+  .dailog-buttons {
+    display: flex;
+    gap: 20%;
+  }
+  .dailog-buttons Button {
+    width: 12rem;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 8px 16px;
+  }
+  Button:hover {
+    background-color: rgba(117, 57, 255, 1);
+    color: white;
   }
 `;

@@ -13,12 +13,7 @@ const ProfileScreen: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"profile" | "account">("profile");
 
   const { data: accountData, isLoading } = useSWR<ProfileDataType>(`${LOCAL_HOST}${FETCH_ACCOUNT}`, getProfile);
-  if (isLoading || !accountData)
-    return (
-      <div>
-        <CircularProgress />
-      </div>
-    );
+  if (isLoading || !accountData) return <div></div>;
 
   return (
     <ProfileContainerStyled>
@@ -31,14 +26,14 @@ const ProfileScreen: React.FC = () => {
           <div>
             <Button
               onClick={() => setActiveTab("profile")}
-              variant={activeTab === "profile" ? "outlined" : "text"}
+              variant={activeTab === "profile" ? "contained" : "text"}
               color="primary"
             >
               PROFILE
             </Button>
             <Button
               onClick={() => setActiveTab("account")}
-              variant={activeTab === "account" ? "outlined" : "text"}
+              variant={activeTab === "account" ? "contained" : "text"}
               color="primary"
             >
               MY ACCOUNT

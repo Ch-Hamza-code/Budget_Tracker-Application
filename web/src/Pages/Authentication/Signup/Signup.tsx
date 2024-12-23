@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignupContainer } from "./Signup.Styles";
+import { SignupContainer, LeftSection, RightSection } from "./Signup.Styles";
 import Button from "../../../Components/Buttons/Button";
 import { SignupFormInputs } from "./SignUp.types";
 import { InputField } from "../../../Components/FormComponents/FormComponents";
@@ -37,70 +37,84 @@ const SignUp: React.FC = () => {
   return (
     <SignupContainer>
       <ToastContainer />
-      <h2>Sign Up</h2>
-      <p>Welcome to our community</p>
+      <LeftSection>
+        <h1>Sign Up</h1>
+        <p>Welcome to our community</p>
 
-      <form className="Form" onSubmit={handleSubmit(onSubmit)}>
-        <InputField
-          control={control}
-          name="firstName"
-          type="text"
-          label="First Name"
-          error={!!errors.firstName}
-          placeholder="First Name"
-          helperText={errors?.firstName?.message}
-        />
-        <InputField
-          control={control}
-          name="lastName"
-          type="text"
-          label="Last Name"
-          error={!!errors.lastName}
-          placeholder="Last Name"
-          helperText={errors?.lastName?.message}
-        />
-        <InputField
-          control={control}
-          name="email"
-          type="email"
-          label="Email"
-          error={!!errors.email}
-          placeholder="Enter an Email"
-          helperText={errors?.email?.message}
-        />
-        <InputField
-          control={control}
-          name="password"
-          type="password"
-          label="Password"
-          error={!!errors.password}
-          placeholder="Enter Password"
-          helperText={errors?.password?.message}
-        />
-        <InputField
-          control={control}
-          name="confirmPassword"
-          type="password"
-          label="Confirm Password"
-          error={!!errors.confirmPassword}
-          placeholder="Confirm Password"
-          helperText={errors?.confirmPassword?.message}
-        />
-        <InputField
-          control={control}
-          name="budgetLimit"
-          type="number"
-          label="Budget Limit"
-          error={!!errors.budgetLimit}
-          placeholder="Enter a Amount"
-          helperText={errors?.budgetLimit?.message}
-        />
-        <div>
+        <form className="Form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="input-row">
+            <InputField
+              control={control}
+              name="firstName"
+              type="text"
+              label="First Name"
+              error={!!errors.firstName}
+              placeholder="First Name"
+              helperText={errors?.firstName?.message}
+            />
+            <InputField
+              control={control}
+              name="lastName"
+              type="text"
+              label="Last Name"
+              error={!!errors.lastName}
+              placeholder="Last Name"
+              helperText={errors?.lastName?.message}
+            />
+          </div>
+
+          <InputField
+            control={control}
+            name="email"
+            type="email"
+            label="Email"
+            error={!!errors.email}
+            placeholder="Enter Email"
+            helperText={errors?.email?.message}
+          />
+
+          <InputField
+            control={control}
+            name="password"
+            type="password"
+            label="Password"
+            error={!!errors.password}
+            placeholder="Enter Password"
+            helperText={errors?.password?.message}
+          />
+          <InputField
+            control={control}
+            name="confirmPassword"
+            type="password"
+            label="Confirm Password"
+            error={!!errors.confirmPassword}
+            placeholder="Confirm Password"
+            helperText={errors?.confirmPassword?.message}
+          />
+
+          <InputField
+            control={control}
+            name="budgetLimit"
+            type="number"
+            label="Budget Limit"
+            error={!!errors.budgetLimit}
+            placeholder="Enter Amount"
+            helperText={errors?.budgetLimit?.message}
+          />
+
           <Button type="submit" variant="contained">
             Sign Up
           </Button>
-        </div>
-      </form>
+
+          <p className="login-link">
+            Already have an account? <a href="/login">Log in</a>
+          </p>
+        </form>
+      </LeftSection>
+
+      <RightSection>
+        <img src="/Images/signupimage.svg" alt="signup"></img>
+      </RightSection>
     </SignupContainer>
   );
 };

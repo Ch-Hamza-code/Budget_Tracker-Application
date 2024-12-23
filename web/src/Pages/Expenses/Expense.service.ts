@@ -14,9 +14,9 @@ export const deleteExpense = async (id: string, token: string) => {
   }
 };
 
-export const FetchExpenses = async (token: string) => {
+export const FetchExpenses = async (token: string, page: number, rowsPerPage: number) => {
   try {
-    const response = await axios.get(`${LOCAL_HOST}${GET_EXP}`, {
+    const response = await axios.get(`${LOCAL_HOST}${GET_EXP}?page=${page}&rowsPerPage=${rowsPerPage}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -5,16 +5,19 @@ export interface Tabledata {
   price: number;
   date: string;
   user: string;
-  
 }
-  export interface TableHeaderType {
-    header: string
-  }
+export interface TableHeaderType {
+  header: string;
+}
 
 export interface TabledataProps {
-    columns: TableHeaderType[]
-    data: any[]
-    expenses?: TabledataProps[];
-    onEdit: (id: string) => void;
-    onDelete: (id: string) => void;
-  }
+  columns: Array<{ header: string; bold?: boolean }>;
+  data: any[];
+  page: number;
+  rowsPerPage: number;
+  totalPages: number;
+  onPageChange: (newPage: number) => void;
+  onRowsPerPageChange: (newRowsPerPage: number) => void;
+
+  expenses?: TabledataProps[];
+}

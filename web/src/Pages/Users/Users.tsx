@@ -1,55 +1,44 @@
 import React, { useState, useEffect } from "react";
+import { Button, LinearProgress, Typography, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  IconButton,
-  LinearProgress,
-  Typography,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  Button,
-} from "@mui/material";
-import TableComponent from "../../Components/Table/Table";
-import Sidebar from "../../Components/SideBar/SideBar";
-import { columns } from "./Users.Types";
 import { UserContainerStyled } from "./Users.Styles";
-import { DeleteUser, FetchUsers, UpdateUser } from "./User.service";
+import Sidebar from "../../Components/SideBar/SideBar";
+import TableComponent from "../../Components/Table/Table";
+import { columns } from "./Users.Types";
+import { DeleteUser, fetchUser, UpdateUser } from "./User.service";
+import useSWR from "swr";
+import EditUserDialog from "./EditUser/EditUser";
+import { FETCH_USERS, GET_EXP, LOCAL_HOST } from "../../Constants/Urls";
 
 const UserPage: React.FC = () => {
-  const [users, setUsers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openDialog, setOpenDialog] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const [userData, setUserData] = useState({ firstName: "", lastName: "", email: "" });
 
   const role = localStorage.getItem("role");
 
-  const fetchUsers = async () => {
-    try {
-      const data = await FetchUsers();
-      setUsers(data);
-    } catch (error: any) {
-      console.error("Failed to fetch users:", error.message);
-    } finally {
-      setLoading(false);
+  const { data, error, isLoading } = useSWR(
+    `${LOCAL_HOST}${FETCH_USERS}?page=${page}&rowsPerPage=${rowsPerPage}`,
+    fetchUser,
+  );
+
+  const handleChangePage = (newPage: number) => {
+    if (newPage < (data?.pagination?.totalPages || 0)) {
+      setPage(newPage + 1);
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const handleChangeRowsPerPage = (newRowsPerPage: number) => {
+    setRowsPerPage(newRowsPerPage);
+
+    setPage(1);
+  };
 
   const handleEdit = (email: string) => {
-    const user = users.find((u) => u.email === email);
+    const user = data?.users.find((u: any) => u.email === email);
     if (user) {
-      setUserData({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-      });
       setCurrentUser(user);
       setOpenDialog(true);
     } else {
@@ -58,21 +47,14 @@ const UserPage: React.FC = () => {
   };
 
   const handleDelete = async (_id: string) => {
-    if (!_id) {
-      console.error("User ID is undefined in handleDelete");
-      return;
-    }
+    if (!_id) return console.error("User ID is undefined in handleDelete");
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("User is not authenticated.");
-        return;
-      }
-
+      if (!token) return console.error("User is not authenticated.");
       const response = await DeleteUser(_id, token);
       console.log("User deleted successfully:", response.message);
 
-      setUsers(users.filter((user) => user._id !== _id));
+      setPage(1);
     } catch (error: any) {
       console.error("Error deleting user:", error.message);
     }
@@ -80,43 +62,21 @@ const UserPage: React.FC = () => {
 
   const handleDialogClose = () => {
     setOpenDialog(false);
-    fetchUsers();
   };
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async () => {
-    if (!currentUser?.email) {
-      alert("Email is missing!");
-      return;
-    }
-    if (userData.email !== currentUser.email) {
-      const emailExists = users.some((user) => user.email === userData.email);
-      if (emailExists) {
-        alert("Email already exists. Please choose another one.");
-        return;
-      }
-    }
-
+  const handleSubmit = async (updatedUser: any) => {
     try {
-      const updatedUser = await UpdateUser(currentUser.email, userData);
-      console.log("User updated successfully:", updatedUser);
-
-      setUsers((prevUsers) => prevUsers.map((user) => (user._id === updatedUser._id ? updatedUser : user)));
-
+      const updatedUserData = await UpdateUser(currentUser.email, updatedUser);
+      console.log("User updated successfully:", updatedUserData);
+      setPage(1);
       setOpenDialog(false);
     } catch (error: any) {
       console.error("Error updating user:", error.message);
       alert(error.message);
     }
   };
-  const dataWithActions = users.map((user) => ({
+
+  const dataWithActions = (data?.users || []).map((user: any) => ({
     ...user,
     Actions: role === "admin" && (
       <>
@@ -146,40 +106,24 @@ const UserPage: React.FC = () => {
           <Typography variant="h6" sx={{ marginLeft: "16px" }}>
             Users
           </Typography>
-          {loading ? (
+          {isLoading ? (
             <LinearProgress />
+          ) : error ? (
+            <div>Error fetching users</div>
           ) : (
-            <TableComponent columns={columns} data={dataWithActions} onDelete={handleDelete} onEdit={handleEdit} />
+            <TableComponent
+              columns={columns}
+              data={dataWithActions}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              page={page - 1}
+              rowsPerPage={rowsPerPage}
+              totalPages={data?.pagination.totalUsers || 0}
+            />
           )}
         </div>
       </div>
-
-      <Dialog open={openDialog} onClose={handleDialogClose}>
-        <DialogTitle>Edit User</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="First Name"
-            name="firstName"
-            value={userData.firstName}
-            onChange={handleFormChange}
-            margin="normal"
-          />
-          <TextField
-            label="Last Name"
-            name="lastName"
-            value={userData.lastName}
-            onChange={handleFormChange}
-            margin="normal"
-          />
-          <TextField label="Email" name="email" value={userData.email} onChange={handleFormChange} margin="normal" />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose}>Cancel</Button>
-          <Button onClick={handleSubmit} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <EditUserDialog open={openDialog} user={currentUser} onClose={handleDialogClose} onSubmit={handleSubmit} />
     </UserContainerStyled>
   );
 };
