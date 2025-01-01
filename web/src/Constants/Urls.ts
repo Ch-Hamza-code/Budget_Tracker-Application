@@ -8,6 +8,7 @@ export const GET_EXP = `api/expenses/`;
 export const DELETE_EXP = `api/expenses/`;
 export const GET_EXPENSES = (id: number) => `api/expenses/${id}`;
 export const FETECH_EXP = `api/expenses/add/`;
+export const UPDATE_EXP = `api/expenses/`;
 
 export const PUT_USER = `api/users/`;
 export const DELETE_USER = `api/users/`;

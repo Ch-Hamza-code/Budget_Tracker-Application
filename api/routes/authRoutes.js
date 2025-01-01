@@ -72,7 +72,6 @@ router.post("/login", async (req, res) => {
         .json({ message: "User not found with that email." });
     }
 
-    // Compare the password with the hashed password in the database
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res
@@ -80,16 +79,15 @@ router.post("/login", async (req, res) => {
         .json({ message: "Invalid credentials. Please check your password." });
     }
 
-    // Generate a JWT token
     const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role }, // Payload (user info)
-      process.env.JWT_SECRET, // Secret key
-      { expiresIn: "1h" } // Expiry time
+      { userId: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
     );
 
     res.status(200).json({
       message: "Login successful",
-      token, // Send the token to the client
+      token,
       profile: {
         id: user._id,
         email: user.email,
@@ -154,11 +152,11 @@ const verifyAdmin = (req, res, next) => {
 
 router.delete("/_id/:_id", verifyAdmin, async (req, res) => {
   const { _id } = req.params;
-  console.log("Received delete request for email:", _id); // Debugging log
+  console.log("Received delete request for email:", _id);
   try {
     const user = await User.findOneAndDelete({ _id: _id });
     if (!user) {
-      console.log("User not found for id:", _id); // Debugging log
+      console.log("User not found for id:", _id);
       return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json({ message: "User deleted successfully" });

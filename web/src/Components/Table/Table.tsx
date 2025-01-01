@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { TabledataProps } from "./Table.Types";
 
-const excludedKey = ["id", "_id", "__v"];
+const excludedKey = ["id", "_id"];
 
 const TableComponent: React.FC<TabledataProps> = ({
   columns,
@@ -29,8 +29,15 @@ const TableComponent: React.FC<TabledataProps> = ({
         <Table sx={{ minWidth: 700 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              {columns?.map((column: any) => (
-                <TableCell>{column?.header}</TableCell>
+              {columns?.map((column: any, index: number) => (
+                <TableCell
+                  key={index}
+                  style={{
+                    fontWeight: column.bold ? "bold" : "normal",
+                  }}
+                >
+                  {column?.header}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>

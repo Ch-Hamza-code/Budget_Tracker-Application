@@ -2,16 +2,28 @@ import styled from "styled-components";
 
 export const LoginStyled = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f8f9fa;
+
+  .logo-container {
+    position: absolute;
+    top: 20px;
+    left: 115px;
+  }
+
+  .logo-image {
+    width: 300px;
+    height: auto;
+  }
+
+  .image {
+    margin: 0 auto;
+  }
 `;
 
 export const LeftSection = styled.div`
   flex: 1;
-  padding: 50px;
-  background-color: #fff;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: right;
@@ -92,7 +104,6 @@ export const RightSection = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 10px;
 `;
 
 export const RememberMe = styled.div`
@@ -100,5 +111,6 @@ export const RememberMe = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  margin-top: -3%;
   font-size: 14px;
 `;

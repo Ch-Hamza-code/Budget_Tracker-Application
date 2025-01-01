@@ -16,6 +16,9 @@ const ResetPassword: React.FC = () => {
 
   return (
     <ResetContainer>
+      <div className="logo-container">
+        <img className="logo-image" src="/Images/logoimage.svg" alt="Budget Tracker Logo" />
+      </div>
       <LeftSection>
         <h1>Reset Password</h1>
         <p>Enter your email for a reset link.</p>

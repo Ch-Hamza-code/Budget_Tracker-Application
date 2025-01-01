@@ -1,6 +1,6 @@
 export interface DeleteExpenseDialogProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
-  expenseTitle: string;
+  expenseToDelete: { _id: string; title: string } | null;
+  refreshExpenses: () => void;
 }

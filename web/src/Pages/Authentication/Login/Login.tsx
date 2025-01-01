@@ -54,6 +54,9 @@ const LoginForm: React.FC = () => {
 
   return (
     <LoginStyled>
+      <div className="logo-container">
+        <img className="logo-image" src="/Images/logoimage.svg" alt="Budget Tracker Logo" />
+      </div>
       <ToastContainer />
       <LeftSection>
         <div className="text">

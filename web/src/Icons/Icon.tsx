@@ -1,5 +1,6 @@
 import { AnalyticsIcon } from "./AnalyticsIcon";
 import { ExpensesIcon } from "./ExpensesIcon";
+import { LogoIcon } from "./logoIcon";
 import { LogoutIcon } from "./LogoutIcon";
 import { UsersIcon } from "./UsersIcon";
 
@@ -9,6 +10,7 @@ interface IconsProps {
 
 export const Icon = ({ iconName }: IconsProps) => {
   const iconsMapper = {
+    logoicon: <LogoIcon />,
     usersIcon: <UsersIcon />,
     analyticsIcon: <AnalyticsIcon />,
     ExpensesIcon: <ExpensesIcon />,

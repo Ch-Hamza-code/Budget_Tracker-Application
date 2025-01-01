@@ -14,7 +14,7 @@ export const FetchAnalyticExpenses = async () => {
       },
     });
 
-    return response.data; // Return the fetched expenses
+    return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.message || "Error fetching expenses.");
   }

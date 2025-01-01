@@ -1,7 +1,7 @@
 export const columns = [
-  { header: "FirstName" },
-  { header: "LastName" },
-  { header: "Email" },
-  { header: "Role" },
-  { header: "Actions" },
+  { header: "FirstName", bold: true },
+  { header: "LastName", bold: true },
+  { header: "Email", bold: true },
+  { header: "Role", bold: true },
+  { header: "Actions", bold: true },
 ];

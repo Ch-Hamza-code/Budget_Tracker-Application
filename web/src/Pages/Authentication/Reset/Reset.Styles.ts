@@ -4,6 +4,20 @@ export const ResetContainer = styled.div`
   display: flex;
   min-height: 50vh;
   font-family: Arial, sans-serif;
+  .logo-container {
+    position: absolute;
+    top: 20px;
+    left: 115px;
+  }
+
+  .logo-image {
+    width: 300px;
+    height: auto;
+  }
+
+  .image {
+    margin: 0 auto;
+  }
 `;
 
 export const LeftSection = styled.div`

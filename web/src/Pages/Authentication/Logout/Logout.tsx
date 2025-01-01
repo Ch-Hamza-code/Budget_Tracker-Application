@@ -27,7 +27,7 @@ const Logout: React.FC = () => {
         <DialogContentText>Are you sure you want to log out?</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} type="submit" variant="text">
+        <Button onClick={handleClose} type="submit" variant="contained">
           No
         </Button>
         <Button onClick={handleLogout} type="submit" variant="contained">

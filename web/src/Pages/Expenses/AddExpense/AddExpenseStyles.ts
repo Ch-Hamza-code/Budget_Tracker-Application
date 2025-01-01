@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Dialog } from "@mui/material";
 
-export const DialogBoxStyled = styled(Dialog)`
+export const AddDialogBoxStyled = styled(Dialog)`
   .MuiDialogTitle-root {
     font-size: 1.5rem;
     font-weight: bold;

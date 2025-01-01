@@ -1,15 +1,11 @@
-import React, { useState } from "react";
-import { DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import Button from "../../../Components/Buttons/Button";
-import { DialogBoxStyled } from "./AddExpenseStyles";
+import { format } from "date-fns";
 import { toast } from "react-toastify";
+import React, { useState } from "react";
+import Button from "../../../Components/Buttons/Button";
+import { AddDialogBoxStyled } from "./AddExpenseStyles";
+import { AddExpenseDialogProps } from "./AddExpense.Types";
 import { FETECH_EXP, LOCAL_HOST } from "../../../Constants/Urls";
-
-interface AddExpenseDialogProps {
-  open: boolean;
-  onClose: () => void;
-  userEmail: string;
-}
+import { DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 
 const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, userEmail }) => {
   const [title, setTitle] = useState("");
@@ -21,13 +17,16 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
       toast.error("Please fill in all fields.");
       return;
     }
+
     const profileEmail = localStorage.getItem("email");
     const id = localStorage.getItem("userId");
+
+    const formattedDate = format(new Date(date), "dd-MMM-yyyy");
 
     const expenseData = {
       title,
       price: parseFloat(price),
-      date: new Date(date).toISOString(),
+      date: formattedDate,
       userEmail: profileEmail,
     };
 
@@ -45,7 +44,6 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
       if (response.ok) {
         const data = await response.json();
         toast.success(data.message, {
-          onClose: () => {},
           autoClose: 1000,
         });
         onClose();
@@ -58,7 +56,7 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
   };
 
   return (
-    <DialogBoxStyled open={open} onClose={onClose}>
+    <AddDialogBoxStyled open={open} onClose={onClose}>
       <DialogTitle>Add Expense</DialogTitle>
       <DialogContent>
         <div>
@@ -91,7 +89,7 @@ const AddExpenseDialog: React.FC<AddExpenseDialogProps> = ({ open, onClose, user
           </Button>
         </div>
       </DialogActions>
-    </DialogBoxStyled>
+    </AddDialogBoxStyled>
   );
 };
 

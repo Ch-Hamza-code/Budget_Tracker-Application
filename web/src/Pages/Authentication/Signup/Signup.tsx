@@ -36,6 +36,9 @@ const SignUp: React.FC = () => {
 
   return (
     <SignupContainer>
+      <div className="logo-container">
+        <img className="logo-image" src="/Images/logoimage.svg" alt="Budget Tracker Logo" />
+      </div>
       <ToastContainer />
       <LeftSection>
         <h1>Sign Up</h1>

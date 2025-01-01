@@ -13,7 +13,7 @@ const accountSchema = new mongoose.Schema({
   dob: String,
   education: String,
   gender: String,
-  email: { type: String, required: true, unique: true }, // Ensure email is included
+  email: { type: String, required: true, unique: true },
 });
 
 module.exports = mongoose.model("Account", accountSchema);

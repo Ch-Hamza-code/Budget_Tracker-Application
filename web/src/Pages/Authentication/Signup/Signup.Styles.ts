@@ -4,6 +4,21 @@ export const SignupContainer = styled.div`
   display: flex;
   min-height: 100vh;
   font-family: Arial, sans-serif;
+
+  .logo-container {
+    position: absolute;
+    top: 20px;
+    left: 115px;
+  }
+
+  .logo-image {
+    width: 300px;
+    height: auto;
+  }
+
+  .image {
+    margin: 0 auto;
+  }
 `;
 
 export const LeftSection = styled.div`
@@ -11,24 +26,40 @@ export const LeftSection = styled.div`
   padding: 50px;
   background-color: #fff;
   display: flex;
+  margin-top: 4%;
   flex-direction: column;
   justify-content: right;
   padding-left: 8%;
 
   h1 {
-    font-size: 2.2rem;
-    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 39.52px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+
+    margin-bottom: 2px;
     color: #000;
   }
 
   p {
+    margin-top: 0;
     color: #7a7a7a;
     margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29.64px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
   }
   .Form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 
     .input-row {
       display: flex;

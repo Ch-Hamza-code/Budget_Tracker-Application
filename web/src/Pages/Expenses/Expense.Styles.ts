@@ -1,44 +1,44 @@
 import styled from "styled-components";
 
 export const ExpenseContainerStyled = styled.div`
-  flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  padding: 24px;
 `;
 
 export const ExpenseTableWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #f5f8fa;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgba(221, 228, 240, 1);
+  padding: 15px;
 `;
 
 export const Heading = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+  height: 48px;
+  top: 103px;
+  left: 109px;
+  gap: 0px;
+  opacity: 0px;
 
   h1 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
-    line-height: 48px;
-    letter-spacing: 0.15000000596046448px;
-    text-align: left;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
+    color: #333;
   }
 
   button {
     font-size: 14px;
+
     padding: 8px 16px;
     background-color: rgba(117, 57, 255, 1);
     color: #fff;
-    text-transform: capitalize;
+    border: none;
+    border-radius: 4px 0px 0px 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     &:hover {
       background-color: #5e35b1;
     }
@@ -47,15 +47,35 @@ export const Heading = styled.div`
 
 export const TableWrapper = styled.div`
   display: flex;
-  gap: 30px;
-  margin-top: 0%;
-  width: 1462px;
-  height: 53px;
-  top: 187px;
-  left: 110px;
-  border-radius: 7px 7px 0px 0px;
-  border: 0px 0px 1px 0px;
-  background-color: rgba(247, 247, 247, 1);
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  padding: 2px;
+  background-color: #f5f8fa;
+
+  border-radius: 8px;
+  justify-content: space-between;
+
+  .header-items {
+    display: flex;
+    gap: 16px;
+
+    align-items: center;
+  }
+
+  .select-any {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  input[type="date"],
+  input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
 `;
 
 export const StyledPagination = styled.div`

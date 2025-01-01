@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CircularProgress, Typography } from "@mui/material";
-import { AnalyticContainerStyled } from "./Analytic.Styles";
+import { AnalyticContainerStyled, Headingdiv } from "./Analytic.Styles";
 import Sidebar from "../../Components/SideBar/SideBar";
 import {
   Chart as ChartJS,
@@ -15,6 +15,7 @@ import {
 } from "chart.js";
 import { FetchAnalyticExpenses } from "./Analytic.service";
 import { ChartData, ExpenseData } from "./Anakytics.Types";
+import MenuAppBar from "../../Components/AppBar/Appbar";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend);
 
@@ -58,32 +59,35 @@ const AnalysisPage: React.FC = () => {
   }, []);
 
   return (
-    <AnalyticContainerStyled>
-      <Sidebar />
-      <div className="UserTable">
-        <div className="heading">
-          <h1>ANALYSIS</h1>
+    <>
+      <MenuAppBar />
+      <AnalyticContainerStyled>
+        <Sidebar />
+        <div className="UserTable">
+          <Headingdiv>
+            <h1>Analysis</h1>
+          </Headingdiv>
+          <div className="Table">
+            <Typography variant="h6" sx={{ marginLeft: "16px" }}>
+              Monthly Expense Analysis
+            </Typography>
+          </div>
+          {loading ? (
+            <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
+          ) : error ? (
+            <Typography variant="body1" sx={{ textAlign: "center", color: "red", marginTop: "20px" }}>
+              {error}
+            </Typography>
+          ) : chartData ? (
+            <Line data={chartData} />
+          ) : (
+            <Typography variant="body1" sx={{ textAlign: "center", marginTop: "20px" }}>
+              No data available to display.
+            </Typography>
+          )}
         </div>
-        <div className="Table">
-          <Typography variant="h6" sx={{ marginLeft: "16px" }}>
-            Monthly Expense Analysis
-          </Typography>
-        </div>
-        {loading ? (
-          <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
-        ) : error ? (
-          <Typography variant="body1" sx={{ textAlign: "center", color: "red", marginTop: "20px" }}>
-            {error}
-          </Typography>
-        ) : chartData ? (
-          <Line data={chartData} />
-        ) : (
-          <Typography variant="body1" sx={{ textAlign: "center", marginTop: "20px" }}>
-            No data available to display.
-          </Typography>
-        )}
-      </div>
-    </AnalyticContainerStyled>
+      </AnalyticContainerStyled>
+    </>
   );
 };
 

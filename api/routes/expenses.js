@@ -3,22 +3,26 @@ const router = express.Router();
 const Expense = require("../models/Expense");
 const authenticateJWT = require("../middleware/authMiddleware");
 
+//ADD EXPENSES ROUTE
+
 router.post("/add/:id", authenticateJWT, async (req, res) => {
   const { id } = req.params;
   const { title, price, date, userEmail } = req.body;
 
   try {
+    const parsedDate = new Date(date.split("-").reverse().join("-"));
+
     const newExpense = new Expense({
       title,
       price,
-      date,
+      date: parsedDate,
       userEmail,
       accountId: id,
     });
     await newExpense.save();
 
-    // Verify by querying the latest added expense
     const savedExpense = await Expense.findOne({ _id: newExpense._id });
+
     if (savedExpense) {
       res
         .status(201)
@@ -33,6 +37,8 @@ router.post("/add/:id", authenticateJWT, async (req, res) => {
   }
 });
 
+//ANALYTICS  ROUTE
+
 router.get("/analytics", authenticateJWT, async (req, res) => {
   const userId = req.user.userId;
   console.log("User", req.user);
@@ -43,24 +49,30 @@ router.get("/analytics", authenticateJWT, async (req, res) => {
     res.status(500).json({ error: "Failed to fetch expenses" });
   }
 });
+
+//GET EXPENSES ROUTE
 router.get("/", authenticateJWT, async (req, res) => {
   const userId = req.user.userId;
-  console.log("User", req.user);
+  const sortField = req.query.sortField || "date";
+  const sortOrder = req.query.sortOrder === "desc" ? -1 : 1;
+
   try {
     const page = Math.max(1, parseInt(req.query.page, 10) || 1);
     const rowsPerPage = Math.max(1, parseInt(req.query.rowsPerPage, 10) || 5);
     const totalExpenses = await Expense.countDocuments();
     const totalPages = Math.ceil(totalExpenses / rowsPerPage);
+
     if (totalExpenses === 0) {
-      return res.status(404).json({ message: "No users found" });
+      return res.status(404).json({ message: "No expenses found" });
     }
     if (page > totalPages) {
-      return res.status(404).json({ message: "No users found for this page" });
+      return res
+        .status(404)
+        .json({ message: "No expenses found for this page" });
     }
-
     const skipValue = (page - 1) * rowsPerPage;
-
     const expenses = await Expense.find({ accountId: userId }, "-__v ")
+      .sort({ [sortField]: sortOrder })
       .skip(skipValue)
       .limit(rowsPerPage)
       .exec();
@@ -74,9 +86,12 @@ router.get("/", authenticateJWT, async (req, res) => {
       },
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Failed to fetch expenses" });
   }
 });
+
+//DELETE ROUTE
 
 router.delete("/:id", authenticateJWT, async (req, res) => {
   try {
@@ -92,3 +107,31 @@ router.delete("/:id", authenticateJWT, async (req, res) => {
 });
 
 module.exports = router;
+
+//EDIT EXPENSE ROUTE
+router.put("/:id", authenticateJWT, async (req, res) => {
+  const { id } = req.params;
+  const { title, price, date } = req.body;
+
+  try {
+    const expense = await Expense.findById(id);
+    if (!expense) {
+      return res.status(404).json({ error: "Expense not found" });
+    }
+    if (expense.userEmail !== req.user.email) {
+      return res
+        .status(403)
+        .json({ error: "You do not have permission to update this expense" });
+    }
+
+    expense.title = title;
+    expense.price = price;
+    expense.date = date;
+    await expense.save();
+
+    res.status(200).json({ message: "Expense updated successfully", expense });
+  } catch (error) {
+    console.error("Update Expense Error:", error);
+    res.status(500).json({ error: "Failed to update expense" });
+  }
+});

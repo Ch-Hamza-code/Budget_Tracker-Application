@@ -1,17 +1,14 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
 
 export const ProfileContainerStyled = styled.div`
-flex-grow: 1;
+  margin-top: 2%;
+  flex-grow: 1;
   display: flex;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    margin-left: 186px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-.Main{
-  width: 100%;
-}
+  padding: 20px;
+
+  .Main {
+    width: 100%;
+  }
   .top {
     display: flex;
     justify-content: space-between;
@@ -54,33 +51,29 @@ flex-grow: 1;
     text-align: justify;
   }
 
-  .text-1{
+  .text-1 {
     margin-top: 3%;
     display: flex;
-    gap: 2%
+    gap: 2%;
   }
-  .text-2{
+  .text-2 {
     margin-top: 1%;
     display: flex;
-    gap: 2%
-
+    gap: 2%;
   }
-  .text-3{
+  .text-3 {
     margin-top: 1%;
     display: flex;
-    gap: 2%
-
+    gap: 2%;
   }
-  .text-4{
+  .text-4 {
     margin-top: 1%;
     display: flex;
-    gap: 2%
-
+    gap: 2%;
   }
-  .text-5{
+  .text-5 {
     margin-top: 1%;
     display: flex;
-    gap: 2%
-
+    gap: 2%;
   }
 `;
