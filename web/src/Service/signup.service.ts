@@ -1,6 +1,6 @@
 import axios from "axios";
-import { SignupFormInputs } from "./SignUp.types";
-import { LOCAL_HOST, POST_SIGNUP } from "../../../Constants/Urls";
+import { SignupFormInputs } from "../Pages/Authentication/Signup/SignUp.types";
+import { LOCAL_HOST, POST_SIGNUP } from "../Constants/Urls";
 
 export const signup = async (data: SignupFormInputs) => {
   try {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { CircularProgress, Typography } from "@mui/material";
-import { AnalyticContainerStyled, Headingdiv } from "./Analytic.Styles";
+import { AnalyticContainerStyled, AnalyticTableWrapper, Headingdiv, TableWrapper3, Top } from "./Analytic.styles";
 import Sidebar from "../../Components/SideBar/SideBar";
 import {
   Chart as ChartJS,
@@ -13,8 +13,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { FetchAnalyticExpenses } from "./Analytic.service";
-import { ChartData, ExpenseData } from "./Anakytics.Types";
+import { FetchAnalyticExpenses } from "../../Service/Analytic.service";
+import { ChartData, ExpenseData } from "./Anakytics.types";
 import MenuAppBar from "../../Components/AppBar/Appbar";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend);
@@ -63,29 +63,37 @@ const AnalysisPage: React.FC = () => {
       <MenuAppBar />
       <AnalyticContainerStyled>
         <Sidebar />
-        <div className="UserTable">
+        <AnalyticTableWrapper>
           <Headingdiv>
             <h1>Analysis</h1>
           </Headingdiv>
-          <div className="Table">
+          <Top>
             <Typography variant="h6" sx={{ marginLeft: "16px" }}>
-              Monthly Expense Analysis
+              Expenses
             </Typography>
-          </div>
-          {loading ? (
-            <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
-          ) : error ? (
-            <Typography variant="body1" sx={{ textAlign: "center", color: "red", marginTop: "20px" }}>
-              {error}
-            </Typography>
-          ) : chartData ? (
-            <Line data={chartData} />
-          ) : (
-            <Typography variant="body1" sx={{ textAlign: "center", marginTop: "20px" }}>
-              No data available to display.
-            </Typography>
-          )}
-        </div>
+            <div className="header-items">
+              <p>Sort By</p>
+              <select className="select-any">
+                <option value="">Last 12 Months</option>
+              </select>
+            </div>
+          </Top>
+          <TableWrapper3>
+            {loading ? (
+              <CircularProgress sx={{ display: "block", margin: "20px auto" }} />
+            ) : error ? (
+              <Typography variant="body1" sx={{ textAlign: "center", color: "red", marginTop: "20px" }}>
+                {error}
+              </Typography>
+            ) : chartData ? (
+              <Line data={chartData} />
+            ) : (
+              <Typography variant="body1" sx={{ textAlign: "center", marginTop: "20px" }}>
+                No data available to display.
+              </Typography>
+            )}
+          </TableWrapper3>
+        </AnalyticTableWrapper>
       </AnalyticContainerStyled>
     </>
   );

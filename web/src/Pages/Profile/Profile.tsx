@@ -1,19 +1,30 @@
 import React, { useState } from "react";
 import { Typography, Button, CircularProgress } from "@mui/material";
-import { ProfileContainerStyled } from "./Profile.Styles";
 import Sidebar from "../../Components/SideBar/SideBar";
 import { ProfileDataType } from "./Profile.types";
 import ProfileInformation from "./ProfileInformation/ProfileInformation";
 import ProfileForm from "./ProfileForm/ProfileForm";
 import useSWR from "swr";
-import { getProfile } from "./Profile.service";
+import { getProfile } from "../../Service/Profile.service";
 import { FETCH_ACCOUNT, LOCAL_HOST } from "../../Constants/Urls";
+import { ProfileContainerStyled } from "./Profile.styles";
 
 const ProfileScreen: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"profile" | "account">("profile");
 
-  const { data: accountData, isLoading } = useSWR<ProfileDataType>(`${LOCAL_HOST}${FETCH_ACCOUNT}`, getProfile);
-  if (isLoading || !accountData) return <div></div>;
+  const { data: accountData, error, isLoading } = useSWR<ProfileDataType>(`${LOCAL_HOST}${FETCH_ACCOUNT}`, getProfile);
+
+  if (isLoading) return <CircularProgress />;
+
+  if (error) {
+    return (
+      <Typography color="error">Error: {error.message || "An error occurred while fetching profile data."}</Typography>
+    );
+  }
+
+  if (!accountData) {
+    return <Typography>No account data available.</Typography>;
+  }
 
   return (
     <ProfileContainerStyled>
@@ -41,9 +52,8 @@ const ProfileScreen: React.FC = () => {
           </div>
         </div>
 
-        {activeTab === "profile" && <ProfileInformation profileData={accountData} />}
-
-        {activeTab === "account" && <ProfileForm initialData={accountData} />}
+        {activeTab === "profile" && accountData && <ProfileInformation profileData={accountData} />}
+        {activeTab === "account" && accountData && <ProfileForm initialData={accountData} />}
       </div>
     </ProfileContainerStyled>
   );

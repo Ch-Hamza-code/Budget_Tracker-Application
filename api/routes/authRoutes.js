@@ -166,4 +166,34 @@ router.delete("/_id/:_id", verifyAdmin, async (req, res) => {
   }
 });
 
+router.post("/verify-email", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Email not found." });
+    }
+    res.status(200).json({ message: "Email verified." });
+  } catch (error) {
+    console.error("Error verifying email:", error);
+    res.status(500).json({ message: "Server error." });
+  }
+});
+
+router.post("/reset-password", async (req, res) => {
+  const { email, newPassword } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    user.password = newPassword; // Remember to hash the password in real applications
+    await user.save();
+    res.status(200).json({ message: "Password reset successfully." });
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    res.status(500).json({ message: "Server error." });
+  }
+});
+
 module.exports = router;

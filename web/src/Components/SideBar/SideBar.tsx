@@ -14,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Icon } from "../../Icons/Icon";
 
-const drawerWidth = 200;
+const drawerWidth = 220;
 
 const sideBarItems = [
   {
@@ -64,7 +64,7 @@ const Sidebar: React.FC = () => {
         sx={{
           position: "absolute",
           top: 10,
-          right: 1400,
+          right: 1370,
           left: isDrawerOpen ? drawerWidth - 40 : 10,
           transition: theme.transitions.create("left", {
             easing: theme.transitions.easing.sharp,
@@ -80,10 +80,15 @@ const Sidebar: React.FC = () => {
         variant="permanent"
         open={isDrawerOpen}
         sx={{
-          width: isDrawerOpen ? drawerWidth : theme.spacing(7),
+          width: isDrawerOpen ? drawerWidth : "75px",
+          height: "979px",
           flexShrink: 0,
+          gap: 0,
+          opacity: 1,
+          background: "rgba(255, 255, 255, 1)",
+          boxShadow: "0px 10px 60px 0px rgba(226, 236, 249, 0.5)",
           "& .MuiDrawer-paper": {
-            width: isDrawerOpen ? drawerWidth : theme.spacing(7),
+            width: isDrawerOpen ? drawerWidth : "75px",
             boxSizing: "border-box",
             overflowX: "hidden",
             transition: theme.transitions.create("width", {
@@ -106,8 +111,9 @@ const Sidebar: React.FC = () => {
                     justifyContent: isDrawerOpen ? "initial" : "center",
                     padding: theme.spacing(1),
                     color: "inherit",
+                    width: isDrawerOpen ? "auto" : "64px",
                     backgroundColor: isActive ? "rgba(117, 57, 255, 1)" : "inherit",
-                    borderRadius: theme.shape.borderRadius,
+                    borderRadius: "8px",
                   }}
                 >
                   <ListItemIcon

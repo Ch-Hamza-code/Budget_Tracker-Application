@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ANALYTICEXPENSES, LOCAL_HOST } from "../../Constants/Urls";
+import { GET_ANALYTICEXPENSES, LOCAL_HOST } from "../Constants/Urls";
 
 export const FetchAnalyticExpenses = async () => {
   try {

@@ -1,11 +1,11 @@
 import * as React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { StyledAppBar, StyledBox, StyledIconButton, StyledToolbar } from "./AppbarStyles";
+import { StyledAppBar, StyledBox, StyledIconButton, StyledToolbar } from "./Appbar.styles";
 import { Avatar, Typography } from "@mui/material";
 import useSWR from "swr";
 import { FETCH_ACCOUNT, LOCAL_HOST } from "../../Constants/Urls";
-import { getProfile } from "../../Pages/Profile/Profile.service";
+import { getProfile } from "../../Service/Profile.service";
 import { useNavigate } from "react-router-dom";
 
 const MenuAppBar: React.FC = () => {
@@ -24,7 +24,7 @@ const MenuAppBar: React.FC = () => {
 
   const handleProfileNavigation = () => {
     handleClose();
-    navigate("//profile-screen");
+    navigate("/profile-screen");
   };
 
   return (

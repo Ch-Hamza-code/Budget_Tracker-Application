@@ -4,6 +4,7 @@ export const TableContainerStyled = styled.div`
   display: flex;
   width: 1486 px;
   height: 100vh;
+  margin-left: 0.5%;
   background-color: #f4f4f4;
   overflow: hidden;
 

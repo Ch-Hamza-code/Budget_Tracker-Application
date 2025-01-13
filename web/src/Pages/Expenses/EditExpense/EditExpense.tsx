@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DialogActions, DialogContent, DialogTitle, TextField, Button, ButtonBase } from "@mui/material";
 import { toast } from "react-toastify";
 import { EditExpenseDialogProps } from "./EditTypes";
-import { updateExpense } from "../Expense.service";
-import { EditDialogBoxStyled } from "./EditExpeseStyles";
+import { updateExpense } from "../../../Service/Expense.service";
+import { EditDialogBoxStyled } from "./EditExpese.styles";
 
 const EditExpenseDialog: React.FC<EditExpenseDialogProps> = ({ open, onClose, expenseToEdit, refreshExpenses }) => {
   const [title, setTitle] = useState("");

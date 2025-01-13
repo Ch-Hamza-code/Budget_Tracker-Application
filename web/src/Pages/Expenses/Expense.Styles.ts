@@ -15,6 +15,7 @@ export const ExpenseTableWrapper = styled.div`
 export const Heading = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-left: 0.5%;
   align-items: center;
   margin-bottom: 8px;
   height: 48px;
@@ -31,7 +32,6 @@ export const Heading = styled.div`
 
   button {
     font-size: 14px;
-
     padding: 8px 16px;
     background-color: rgba(117, 57, 255, 1);
     color: #fff;
@@ -49,11 +49,11 @@ export const TableWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-left: 0.5%;
   margin-top: 10px;
   padding: 2px;
   background-color: #f5f8fa;
 
-  border-radius: 8px;
   justify-content: space-between;
 
   .header-items {
@@ -83,30 +83,3 @@ export const StyledPagination = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-
-export const MuiStyles = {
-  tableCell: {
-    fontSize: "14px",
-    color: "#555",
-    padding: "12px 16px",
-    "&:first-of-type": {
-      fontWeight: "bold",
-    },
-  },
-  tableHead: {
-    backgroundColor: "#f9f9f9",
-    "& .MuiTableCell-root": {
-      fontSize: "15px",
-      fontWeight: "600",
-      color: "#333",
-    },
-  },
-  tableRow: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: "#f7f7f7",
-    },
-    "&:hover": {
-      backgroundColor: "#eaeaea",
-    },
-  },
-};

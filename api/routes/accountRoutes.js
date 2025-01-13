@@ -32,7 +32,8 @@ router.post("/add", authenticateJWT, async (req, res) => {
 
 router.get("/fetch", authenticateJWT, async (req, res) => {
   try {
-    const email = req.user.email;
+    const email = req.user?.email;
+    console.log("Fetching account for email:", email);
 
     const account = await Account.findOne({ email });
     if (!account) {
@@ -43,6 +44,7 @@ router.get("/fetch", authenticateJWT, async (req, res) => {
 
     res.json(account);
   } catch (error) {
+    console.error("Error fetching account:", error.message);
     res
       .status(500)
       .json({ error: "Error fetching account data", details: error.message });

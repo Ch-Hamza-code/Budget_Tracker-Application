@@ -1,10 +1,11 @@
 import React from "react";
 import { DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import Button from "../../../Components/Buttons/Button";
-import { AddDialogBoxStyled } from "../AddExpense/AddExpenseStyles";
-import { DeleteExpenseDialogProps } from "./DeleteExpense.Types";
-import { deleteExpense } from "../Expense.service";
+import { AddDialogBoxStyled } from "../AddExpense/AddExpense.styles";
+
+import { deleteExpense } from "../../../Service/Expense.service";
 import { toast } from "react-toastify";
+import { DeleteExpenseDialogProps } from "./DeleteExpense.types";
 
 const DeleteExpenseDialog: React.FC<DeleteExpenseDialogProps> = ({
   open,

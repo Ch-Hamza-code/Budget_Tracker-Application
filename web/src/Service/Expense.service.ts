@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DELETE_EXP, GET_EXP, LOCAL_HOST, UPDATE_EXP } from "../../Constants/Urls";
+import { DELETE_EXP, GET_EXP, LOCAL_HOST, UPDATE_EXP } from "../Constants/Urls";
 import useSWR from "swr";
 
 export const deleteExpense = async (id: string, token: string) => {

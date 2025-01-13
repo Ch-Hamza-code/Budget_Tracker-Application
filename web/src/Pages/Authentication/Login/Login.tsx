@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { LoginStyled, LeftSection, RightSection, Form, RememberMe } from "./Login.Styles";
+import { LoginStyled, LeftSection, RightSection, Form, RememberMe } from "./Login.styles";
 import Button from "../../../Components/Buttons/Button";
 import { FormInputs } from "./Login.types";
 import { CheckboxField, InputField } from "../../../Components/FormComponents/FormComponents";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { login, storeuser } from "./Login.service";
+import { login, storeuser } from "../../../Service/Login.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginFormSchema } from "../../../validations/validations";
 

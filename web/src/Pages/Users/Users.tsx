@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import { Button, LinearProgress, Typography, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Heading, TableWrapper2, UserContainerStyled, UsersTableWrapper } from "./Users.Styles";
+
 import Sidebar from "../../Components/SideBar/SideBar";
 import TableComponent from "../../Components/Table/Table";
-import { columns } from "./Users.Types";
-import { DeleteUser, fetchUser, UpdateUser } from "./User.service";
+
+import { DeleteUser, fetchUser, UpdateUser } from "../../Service/User.service";
 import useSWR from "swr";
 import EditUserDialog from "./EditUser/EditUser";
 import { FETCH_USERS, LOCAL_HOST } from "../../Constants/Urls";
 import MenuAppBar from "../../Components/AppBar/Appbar";
+import { Heading, TableWrapper2, UserContainerStyled, UsersTableWrapper } from "./Users.styles";
+import { columns } from "./Users.types";
 
 const UserPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openDialog, setOpenDialog] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
-
+  const [searchTerm, setSearchTerm] = useState("");
   const role = localStorage.getItem("role");
 
   const { data, error, isLoading } = useSWR(
@@ -33,7 +35,6 @@ const UserPage: React.FC = () => {
 
   const handleChangeRowsPerPage = (newRowsPerPage: number) => {
     setRowsPerPage(newRowsPerPage);
-
     setPage(1);
   };
 
@@ -77,7 +78,11 @@ const UserPage: React.FC = () => {
     }
   };
 
-  const dataWithActions = (data?.users || []).map((user: any) => ({
+  const filteredUsers = (data?.users || []).filter((user: any) =>
+    user.email.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  const dataWithActions = filteredUsers.map((user: any) => ({
     ...user,
     Actions: role === "admin" && (
       <>
@@ -113,12 +118,14 @@ const UserPage: React.FC = () => {
               <p>Sort By</p>
               <select className="select-any">
                 <option value="">All</option>
-                <option value="expenditure">Expenditure</option>
-                <option value="price">Price</option>
-                <option value="date">Date</option>
               </select>
               <div>
-                <input type="text" placeholder="Search..." />
+                <input
+                  type="text"
+                  placeholder="Search by email..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
             </div>
           </TableWrapper2>

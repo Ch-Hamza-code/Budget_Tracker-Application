@@ -16,3 +16,6 @@ export const FETCH_USERS = `api/users`;
 
 export const ADD_ACCOUNT = `api/accounts/add`;
 export const FETCH_ACCOUNT = `api/accounts/fetch`;
+
+export const VERIFY_EMAIL = `api/auth/verify-email`;
+export const RESET_PASSWORD = `api/auth/reset-password`;

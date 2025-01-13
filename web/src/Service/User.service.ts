@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DELETE_USER, LOCAL_HOST, PUT_USER } from "../../Constants/Urls";
+import { DELETE_USER, LOCAL_HOST, PUT_USER } from "../Constants/Urls";
 
 export const DeleteUser = async (id: string, token: string) => {
   try {

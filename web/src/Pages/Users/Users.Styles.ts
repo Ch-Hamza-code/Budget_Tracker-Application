@@ -26,11 +26,14 @@ export const UsersTableWrapper = styled.div`
 export const Heading = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-left: 0.5%;
   align-items: center;
   margin-bottom: 8px;
   height: 48px;
   top: 103px;
   left: 109px;
+  gap: 0px;
+  opacity: 0px;
   h1 {
     font-size: 28px;
     font-weight: 600;
@@ -56,11 +59,10 @@ export const TableWrapper2 = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+  margin-left: 0.5%;
   margin-top: 10px;
   padding: 2px;
   background-color: #f5f8fa;
-
-  border-radius: 8px;
   justify-content: space-between;
   .header-items {
     display: flex;

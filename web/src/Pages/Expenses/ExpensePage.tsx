@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { columns } from "./Expense.Types";
 import "react-toastify/dist/ReactToastify.css";
-import { useExpenses } from "./Expense.service";
+import { useExpenses } from "../../Service/Expense.service";
 import { ToastContainer } from "react-toastify";
 import Button from "../../Components/Buttons/Button";
 import AddExpenseDialog from "./AddExpense/AddExpense";
@@ -13,7 +12,8 @@ import EditExpenseDialog from "./EditExpense/EditExpense";
 import { CustomdeleteIcon } from "../../Icons/deleteIcon";
 import DeleteExpenseDialog from "./DeleteExpense/DeleteExpense";
 import { IconButton, LinearProgress, Tooltip, Typography } from "@mui/material";
-import { ExpenseContainerStyled, ExpenseTableWrapper, Heading, TableWrapper } from "./Expense.Styles";
+import { ExpenseContainerStyled, ExpenseTableWrapper, Heading, TableWrapper } from "./Expense.styles";
+import { columns } from "./Expense.types";
 
 const ExpensesPage: React.FC = () => {
   const [expenseToEdit, setExpenseToEdit] = useState<any>(null);

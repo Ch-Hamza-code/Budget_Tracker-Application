@@ -1,12 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignupContainer, LeftSection, RightSection } from "./Signup.Styles";
+import { SignupContainer, LeftSection, RightSection } from "./Signup.styles";
 import Button from "../../../Components/Buttons/Button";
 import { SignupFormInputs } from "./SignUp.types";
 import { InputField } from "../../../Components/FormComponents/FormComponents";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { signup } from "./signup.service";
+import { signup } from "../../../Service/signup.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpFormSchema } from "../../../validations/validations";
 

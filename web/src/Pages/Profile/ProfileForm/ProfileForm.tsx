@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputField } from "../../../Components/FormComponents/FormComponents";
 import Button from "../../../Components/Buttons/Button";
-import { ProfileFormStyled } from "./ProfileFormStyles";
+import { ProfileFormStyled } from "./ProfileForm.styles";
 import { ProfileFormProps } from "./ProfileForm.types";
 import { profileFormSchema } from "../../../validations/validations";
 import { ProfileDataType } from "../Profile.types";
-import { UpdateAccount } from "../Profile.service";
+import { UpdateAccount } from "../../../Service/Profile.service";
 
 const ProfileForm = ({ initialData }: ProfileFormProps) => {
   const {
